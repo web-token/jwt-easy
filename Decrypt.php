@@ -110,7 +110,7 @@ class Decrypt extends AbstractLoader
 
         $jwt = new JWT();
         $jwt->header->replace($jwe->getSharedProtectedHeader());
-        $jwt->claims->replace(JsonConverter::decode($jwe->getPayload()));
+        $jwt->claims->replace((array)JsonConverter::decode((string)$jwe->getPayload()));
 
         $claimChecker = new Checker\ClaimCheckerManager($this->claimCheckers);
         $claimChecker->check($jwt->claims->all());
